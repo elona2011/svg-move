@@ -1,24 +1,25 @@
 let imgWidth = 2732,
     imgHeight = 1536
 
-addPlanet('mercury', 350, 0.3, 0.2, 0.6, 0.4, 2, 0)
-// addPlanet('venus', 300, 0.3, 0.2, 0.55, 0.5, 14, 0)
-// addPlanet('earth', 400, 0.3, 0.2, 0.5, 0.7, 18, 0)
-// addPlanet('mars', 500, 0.3, 0.2, 0.45, 0.5, 22, 0)
-// addPlanet('jupiter', 600, 0.3, 0.2, 0.4, 1.3, 30, 0)
-// addPlanet('saturn', 700, 0.4, 0.2, 0.35, 1.8, 40, 0)
+addPlanet('mercury', 400, 150, 0, 6, 0)
+addPlanet('venus', 500, 80, 0, 14, 0)
+addPlanet('earth', 600, 0, 0, 18, 0)
+addPlanet('mars', 750, -80, 0, 22, 0)
+addPlanet('jupiter', 900, -160, 0, 30, 0)
+addPlanet('saturn', 1100, -300, 0, 40, 0)
 // addPlanet('uranus', 800, 0.5, 0.2, 0.3, 1.2, 50, 0)
 // addPlanet('neptune', 900, 0.6, 0.2, 0.25, 1.3, 80, 0)
 
-function addPlanet(name, radius, rightOffse, leftOffset, topOffset, scale, duration = 5, delay = 0) {
+function addPlanet(name, radius, topOffset, leftOffset, duration = 5, delay = 0) {
     //add dom
-    let planet,
-        dom = document.querySelector('#planet')
+    let planet = document.createElement('div'),
+        dom = document.querySelector('#planet'),
+        orbit = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+        circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
 
-    planet = document.createElement('div')
-    orbit = document.createElement('div')
     planet.id = name
     orbit.id = `${name}orbit`
+    orbit.appendChild(circle)
     planet.innerHTML = `
                 <div class="img-wrap">
                     <img src="img/${name}.png" alt="">
@@ -31,10 +32,8 @@ function addPlanet(name, radius, rightOffse, leftOffset, topOffset, scale, durat
     let style = document.createElement('style'),
         width = getWidth(),
         height = getHeight(),
-        ratio = getRatio() * scale,
         keyFrames
 
-    // leftOffset = 0
     style.type = 'text/css'
     keyFrames = `
     @keyframes ${name}zindex{
@@ -60,30 +59,59 @@ function addPlanet(name, radius, rightOffse, leftOffset, topOffset, scale, durat
           transform: rotateX(80deg) rotateY(-10deg) rotateZ(360deg);
         }
       }
+      @keyframes ${name}cireverse {
+        0% {
+          transform:  rotateZ(0deg);
+        }
+        100% {
+          transform:  rotateZ(-360deg);
+        }
+      }
+    @keyframes ${name}cir1 {
+       0%{
+        transform: rotateY(0deg);
+       }
+       100%{
+           transform: rotateY(360deg);
+       }
+    }
 
     #${name}{
-        width: 350px;
-        height: 350px;
+        top:${topOffset}px;
+        left:${leftOffset}px;
+        position: absolute;
+        width: ${radius}px;
+        height: ${radius}px;
         animation:${name}cir ${duration}s infinite linear;
+        transform-style: preserve-3d;
     }
 
     #${name} .img-wrap{
         position: absolute;
+        transform-style: preserve-3d;
+        transform: rotateX(-90deg) translateX(${radius/3.1}px) translateY(${-radius/100}px);        
     }
 
     #${name} img{
         transform: translate(-50%,-50%);
-        position: relative;
-        top: ${radius/2}px;
+        animation: ${name}cir1 ${duration}s infinite linear;
     }
     
-    #${name}orbit {
-        width: ${radius}px;
-        height: ${radius}px;
-        top: 0;
-        border: 20px solid #aaa;
-        box-sizing: border-box;
-        border-radius: 50%;
+    #${name} svg {
+        width:100%;
+        height:100%;
+        animation:${name}cireverse ${duration}s infinite linear;
+    }
+    #${name} svg circle{
+        cx: ${radius/2}px;
+        cy: ${radius/2}px;
+        r:${radius/2-5}px;
+        fill:rgba(0,0,0,0);
+        stroke:rgba(170,170,170,0.3);
+        stroke-width:10;
+        stroke-dasharray:${radius*2.5};
+        transform:rotate(-143deg);
+        transform-origin:center;
     }
     `
     style.innerHTML = keyFrames
