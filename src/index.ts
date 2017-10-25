@@ -29,53 +29,7 @@ class MovingObject {
 
     }
 
-    // loop(min: number, max: number): number {
-    //     let step = (min + max) / 2
-    //     let d = this.getD(step)
-    //     if (d - 1 > 0.5) {
-    //         return this.loop(min, step)
-    //     } else if (d - 1 < -0.5) {
-    //         return this.loop(step, max)
-    //     } else {
-    //         return step
-    //     }
-    // }
 
-    // getD(step: number): number {
-    //     let { x, y } = this.getXY(step)
-
-    //     return Math.sqrt((x - this.x) * (x - this.x) + (y - this.y) * (y - this.y))
-    // }
-
-    // getXY(step: number): { x: number, y: number } {
-    //     let x = 0, y = this.getY(x)
-
-    //     if (this.direction) {
-    //         x = this.x + step
-    //         if (x > this.a) {
-    //             x = this.x
-    //             y = -this.getY(x)
-    //             // this.direction = !this.direction
-    //         }
-    //     } else {
-    //         x = this.x - step
-    //         if (x < -this.a) {
-    //             x = this.x
-    //             y = -this.getY(x)
-    //             // this.direction = !this.direction
-    //         }
-    //     }
-    //     y = this.getY(x)
-    //     return { x, y }
-    // }
-
-    // getY(x: number): number {
-    //     let y = Math.sqrt((1 - x * x / (this.a * this.a)) * this.b * this.b)
-    //     if (this.direction) {
-    //         return -y
-    //     } else
-    //         return y
-    // }
 }
 
 let domEarth = <SVGElement>document.querySelector('svg #earth')

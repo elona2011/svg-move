@@ -12,6 +12,26 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            height: 100%;
+        }
+
+        figure{
+            margin: 0;
+        }
+
+        #sun {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            min-height: 700px;
+        }
+
+        #filter,#orbit {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
         }
 
         svg {
@@ -25,66 +45,18 @@
         }
 
         body {
-            background-image: url(img/a2.png);
-        }
-
-        img {
-            width: 50px;
-            height: 50px;
-        }
-
-        @keyframes circle {
-            /* 0% {
-                transform: perspective(300px) translateZ(0px) rotate(0turn);
-            }
-            25% {
-                transform: perspective(300px) translateZ(0px) rotate(0.25turn);
-            }
-            50% {
-                transform: perspective(300px) translateZ(00px) rotate(0.5turn);
-            }
-            75% {
-                transform: perspective(300px) translateZ(00px) rotate(0.75turn);
-            } */
-            to {
-                transform: perspective(300px) translateZ(0px) rotate(1turn);
-            }
-        }
-
-        @keyframes updown {
-            to {
-                transform: translate(500px, 0px);
-            }
-        }
-
-        figure {
-            animation: updown 1s infinite ease-in-out 0s alternate;
-        }
-
-        div#redball {
-            position: relative;
-            top: 100px;
-            left: 400px;
-            width: 100px;
-            height: 50px;
-            transform-origin: 200% center;
-            animation: circle 2s infinite linear;
+            overflow: hidden;
+            background: url(img/orbital.png) no-repeat left top fixed,
+                        url(img/galaxy.png) no-repeat left top fixed;
+            background-size: cover;
         }
     </style>
 </head>
 
 <body>
-    <!-- <svg viewbox="0 0 1200 1000" preserveAspectRatio="xMinYMid slice">
-        <image xlink:href="img/a2.png" x="0" y="0" width="1200px" height="1000px"/>
-        <g id="earth">
-            <image xlink:href="img/earth.jpg" x="0" y="0" />
-        </g>
-    </svg> -->
-    <figure>
-        <div id="redball">
-            <img src="img/earth.jpg" alt="">
-        </div>
-    </figure>
+    <img id="sun" src="img/sun.png" alt="">
+    <img id="filter" src="img/filter.png" alt="">
+    <!-- <iframe src="http://saturnsit.cnsuning.com" frameborder="0"></iframe> -->
     <script src="index.js"></script>
 </body>
 
